@@ -88,7 +88,7 @@ public class GrafoComBuscaEmProfundidade<T> implements GrafoInterface<T>{
 				Vertice<T> v2 = verticesAdjacentes(u.value).elementAt(i);
 				
 				if(v2.color == Color.WHITE){
-					v2.color = Color.SILVER;
+					v2.color = Color.GRAY;
 					v2.range = u.range + 1;
 					v2.ancestor = u;
 					queue.enqueue(v2);
@@ -105,33 +105,40 @@ public class GrafoComBuscaEmProfundidade<T> implements GrafoInterface<T>{
 			u.ancestor = null;
 		}
 		
-		v.color = Color.SILVER;
-		System.out.println(v.value);
+		int time = 0;
+		v.color = Color.GRAY;
+		v.iniRange = ++time;
 		
 		Stack<Vertice<T>> stack = new Stack<Vertice<T>>();
 		stack.push(v);
 		
-		while(!stack.isEmpty()){
+		
+		while(!stack.isEmpty()) {
+	        
+			Vertice<T> v2 = stack.peek();
 			
-			for(int i = 0; i < verticesAdjacentes(stack.peek().value).size(); i++){	
-				Vertice<T> v2 = verticesAdjacentes(stack.peek().value).elementAt(i);
-					
-				if(v2.color == Color.WHITE){
-					System.out.println(v2.value);
-					v2.color = Color.SILVER;
-					stack.push(v2);
-				} else if(v2.color == Color.SILVER){
-					v2.color = Color.BLACK;
-				} else {
+			for(int i = 0;i < verticesAdjacentes(stack.peek().value).size();i++){
+				Vertice<T> temp = verticesAdjacentes(stack.peek().value).elementAt(i);
+				
+				if(temp.color == Color.WHITE){
+					temp.iniRange = ++time;
+					temp.color = Color.GRAY;
+					temp.ancestor = v2;
+					stack.push(temp);
+					System.out.println(temp.value + " " + temp.color);
+				} else if(temp.color == Color.GRAY) {
+					temp.color = Color.BLACK;
+					temp.lastRange = ++time;
+				} else if(temp.color == Color.BLACK){
 					stack.pop();
 				}
 				
-				if (stack.isEmpty()){
+				if(!stack.isEmpty()){
 					break;
 				}
 			}
-		}
+	    }
+		
+		
 	}
-	
-
 }

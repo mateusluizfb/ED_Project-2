@@ -2,7 +2,7 @@ package GrafoBuscaEmProfundidade;
 
 enum Color {
 	WHITE,
-	SILVER,
+	GRAY,
 	BLACK;
 }
 
@@ -11,6 +11,8 @@ public class Vertice<T> {
 	Color color;
 	T value;
 	int range;
+	int iniRange;
+	int lastRange;
 	Vertice<T> ancestor;
 	
 	public Vertice(T value){
