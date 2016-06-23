@@ -2,9 +2,9 @@ package Tree;
 
 import junit.framework.TestCase;
 
-public class testBST extends TestCase {
-	
-	Tree tree = new BST();
+public class testAVL extends TestCase {
+
+	Tree tree = new AVL();
 
 	protected void setUp() throws Exception {
 		super.setUp();		
@@ -50,5 +50,5 @@ public class testBST extends TestCase {
 		
 		
 	}
-
+	
 }

@@ -2,44 +2,16 @@ package Tree;
 
 import Lists.InvalidArgumentException;
 
-class BSTNode {
+public class BST implements Tree{
 	
-	private int value;
-	private BSTNode rightChild;
-	private BSTNode leftChild;
-	
-	public int getValue() {
-		return value;
-	}
-	public void setValue(int value) {
-		this.value = value;
-	}
-	public BSTNode getRightChild() {
-		return rightChild;
-	}
-	public void setRightChild(BSTNode rightChild) {
-		this.rightChild = rightChild;
-	}
-	public BSTNode getLeftChild() {
-		return leftChild;
-	}
-	public void setLeftChild(BSTNode leftChild) {
-		this.leftChild = leftChild;
-	}
-	
-	
-}
-
-public class BST {
-	
-	private BSTNode root;
+	protected Node root;
 	
 	public BST(){
 		root = null;
 	}
 	
-	public BSTNode find(int key){
-		BSTNode current = root;
+	public Node find(int key){
+		Node current = root;
 		
 		while(current.getValue() != key){
 			
@@ -56,27 +28,27 @@ public class BST {
 	}
 	
 	public void insert(int key){
-		BSTNode newBSTNode = new BSTNode();
-		newBSTNode.setValue(key);
+		Node newNode = new Node();
+		newNode.setValue(key);
 		
 		if (root == null){
-			root = newBSTNode;
+			root = newNode;
 		} else {
-			BSTNode current = root;
-			BSTNode parent;
+			Node current = root;
+			Node parent;
 			
 			while(true){
 				parent = current;
 				if(key < current.getValue()){
 					current = current.getLeftChild();
 					if (current == null){
-						parent.setLeftChild(newBSTNode);
+						parent.setLeftChild(newNode);
 						break;
 					}
 				} else {
 					current = current.getRightChild();
 					if (current == null){
-						parent.setRightChild(newBSTNode);
+						parent.setRightChild(newNode);
 						break;
 					}
 				}
@@ -85,8 +57,8 @@ public class BST {
 	}
 	
 	public void remove(int key){
-		BSTNode current = root;
-		BSTNode parent = root;
+		Node current = root;
+		Node parent = root;
 		boolean isLeft = true;
 		
 		while(current.getValue() != key){ //enquanto ele não encontrar o nó
@@ -128,7 +100,7 @@ public class BST {
 				parent.setRightChild(current.getRightChild());
 			}
 		} else { // possui dois filhos
-			BSTNode successor = getSucessor(current);
+			Node successor = getSucessor(current);
 			
 			if(current == root){
 				root = successor;
@@ -142,10 +114,10 @@ public class BST {
 		}
 	}
 	
-	public BSTNode getSucessor(BSTNode nodeRemove){ //pegar o sucessor do node a ser removido para substituir
-		BSTNode successorParent = nodeRemove;
-		BSTNode successor = nodeRemove;
-		BSTNode current = nodeRemove.getRightChild();
+	protected Node getSucessor(Node nodeRemove){ //pegar o sucessor do node a ser removido para substituir
+		Node successorParent = nodeRemove;
+		Node successor = nodeRemove;
+		Node current = nodeRemove.getRightChild();
 		
 		while(current != null){
 			successorParent = successor;
@@ -160,7 +132,7 @@ public class BST {
 		return successor;
 	}	
 	
-	public BSTNode getRoot(){
+	public Node getRoot(){
 		return root;
 	}
 	
@@ -183,7 +155,7 @@ public class BST {
 		System.out.println();
 	}
 	
-	public void preOrder(BSTNode localRoot){
+	protected void preOrder(Node localRoot){
 		if(localRoot != null){
 			System.out.print(localRoot.getValue() + " ");
 			preOrder(localRoot.getLeftChild());
@@ -191,7 +163,7 @@ public class BST {
 		}
 	}
 	
-	public void inOrder(BSTNode localRoot){
+	protected void inOrder(Node localRoot){
 		if(localRoot != null){
 			preOrder(localRoot.getLeftChild());
 			System.out.print(localRoot.getValue() + " ");			
@@ -199,7 +171,7 @@ public class BST {
 		}
 	}
 	
-	public void postOrder(BSTNode localRoot){
+	protected void postOrder(Node localRoot){
 		if(localRoot != null){
 			preOrder(localRoot.getLeftChild());
 			preOrder(localRoot.getRightChild());
