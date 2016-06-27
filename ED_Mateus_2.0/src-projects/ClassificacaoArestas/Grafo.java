@@ -126,9 +126,9 @@ public class Grafo<T> implements GrafoInterface<T>{
 			if(temp.color == Color.WHITE){
 				temp.ancestor = u;
 				
-//				Aresta<T> newEdge = new Aresta<T>(u, temp);
-//				newEdge.type = "TREE_EDGE";
-//				edges.insert(0, newEdge);
+				Aresta<T> newEdge = new Aresta<T>(u, temp);
+				newEdge.type = "TREE_EDGE";
+				edges.insert(0, newEdge);
 				
 				visit(temp);
 			}
@@ -138,9 +138,13 @@ public class Grafo<T> implements GrafoInterface<T>{
 	}
 	
 	public void showEdges(){
-		
-		edges.show(false);
-		
+		edges.show(false);	
+	}
+	
+	public void showValues(){
+		for(Vertice<T> v: grafoMap.keySet()){
+			System.out.println(v);
+		}
 	}
 
 }

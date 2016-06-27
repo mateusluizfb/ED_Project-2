@@ -13,7 +13,7 @@ public class Aresta<T> {
 	}
 	
 	public String toString(){
-		return ("Start: " + origem + " ,End: " + destino + " / Type: " + type);
+		return ("Start: " + origem.value + " ,End: " + destino.value + " / Type: " + type);
 	}
 	
 }

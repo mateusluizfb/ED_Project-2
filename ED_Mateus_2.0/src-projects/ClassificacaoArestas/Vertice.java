@@ -19,7 +19,7 @@ public class Vertice<T> {
 	}
 	
 	public String toString() {
-		return value.toString() + " - " + color + " - " + range;
+		return value.toString() + " / range inicial: " + range + " - range final: " + finalRange;
 	}
 	
 }
