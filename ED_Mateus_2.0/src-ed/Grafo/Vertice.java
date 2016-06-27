@@ -8,10 +8,11 @@ enum Color {
 
 public class Vertice<T> {
 
-	Color color;
-	T value;
-	int range;
-	Vertice<T> ancestor;
+	public Color color;
+	public T value;
+	public int range;
+	public Vertice<T> ancestor;
+	public int finalRange;
 	
 	public Vertice(T value){
 		this.value = value;

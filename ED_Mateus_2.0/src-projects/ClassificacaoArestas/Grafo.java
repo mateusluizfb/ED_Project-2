@@ -1,21 +1,21 @@
-package GrafoBuscaEmProfundidade;
+package ClassificacaoArestas;
 
 import java.util.HashMap;
-import java.util.Stack;
-
 import Lists.LinkedListGeneric;
 import Lists.ListGeneric;
 import Queue.QueueGeneric;
 
-public class GrafoComBuscaEmProfundidade<T> implements GrafoInterface<T>{
+public class Grafo<T> implements GrafoInterface<T>{
 
 	public static int INFINITO = -1;
 	public HashMap<Vertice<T>, ListGeneric<Vertice<T>>> grafoMap;
 	public boolean dirigido;
+	public ListGeneric<Aresta<T>> edges;
 	
-	public GrafoComBuscaEmProfundidade(boolean dirigido){
+	public Grafo(boolean dirigido){
 		this.dirigido = dirigido;
 		grafoMap = new HashMap<Vertice<T>, ListGeneric<Vertice<T>>>();
+		edges = new LinkedListGeneric<Aresta<T>>();
 	}
 	
 	@Override
@@ -88,7 +88,7 @@ public class GrafoComBuscaEmProfundidade<T> implements GrafoInterface<T>{
 				Vertice<T> v2 = verticesAdjacentes(u.value).elementAt(i);
 				
 				if(v2.color == Color.WHITE){
-					v2.color = Color.GRAY;
+					v2.color = Color.SILVER;
 					v2.range = u.range + 1;
 					v2.ancestor = u;
 					queue.enqueue(v2);
@@ -98,42 +98,49 @@ public class GrafoComBuscaEmProfundidade<T> implements GrafoInterface<T>{
 		}
 		
 	}
+	int time = 0;
 	
-	public void buscaEmProfundidade(Vertice<T> v){
+	public void dfs(){
 		for (Vertice<T> u : grafoMap.keySet()){
 			u.color = Color.WHITE;
 			u.ancestor = null;
+			u.range = INFINITO;
 		}
 		
-		int time = 0;
-		v.color = Color.GRAY;
-		v.iniRange = ++time;
-		
-		Stack<Vertice<T>> stack = new Stack<Vertice<T>>();
-		stack.push(v);
-		
-		
-		while(!stack.isEmpty()) {
-	        
-			for(int i = 0;i < verticesAdjacentes(stack.peek().value).size();i++){
-				Vertice<T> temp = verticesAdjacentes(stack.peek().value).elementAt(i);
-				
-				if(temp.color == Color.WHITE){
-					temp.range = ++time;
-					temp.color = Color.GRAY;
-					temp.ancestor = stack.peek();
-					stack.push(temp);
-				} else if(temp.color == Color.GRAY) {
-					temp.color = Color.BLACK;
-				} else if(temp.color == Color.BLACK){
-					stack.pop();
-				}
-				
-				if(stack.isEmpty()){
-					break;
-				}
+		time = 0;
+		for (Vertice<T> u : grafoMap.keySet()){
+			if (u.color == Color.WHITE){
+				visit(u);
 			}
-	    }
+		} 
+		time = 0;
+	}
+	
+	protected void visit(Vertice<T> u){
+		
+		u.range = ++time;
+		u.color = Color.SILVER;
+		
+		for(int i = 0;i < verticesAdjacentes(u.value).size();i++){
+			Vertice<T> temp = verticesAdjacentes(u.value).elementAt(i);
+			if(temp.color == Color.WHITE){
+				temp.ancestor = u;
+				
+//				Aresta<T> newEdge = new Aresta<T>(u, temp);
+//				newEdge.type = "TREE_EDGE";
+//				edges.insert(0, newEdge);
+				
+				visit(temp);
+			}
+		}		
+		u.color = Color.BLACK;
+		u.finalRange = ++time;	
+	}
+	
+	public void showEdges(){
+		
+		edges.show(false);
 		
 	}
+
 }

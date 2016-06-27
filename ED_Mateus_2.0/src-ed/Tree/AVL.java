@@ -18,16 +18,16 @@ public class AVL extends BST{
 					current = current.getLeftChild();
 					if (current == null){
 						parent.setLeftChild(newNode);
-						 rebalance(parent);
+						newNode.setParent(parent);
+						refreshHeight(newNode);
 						break;
-					} else {
-						current.setParent(parent);
 					}
 				} else {
 					current = current.getRightChild();
 					if (current == null){
 						parent.setRightChild(newNode);
-						rebalance(parent);
+						newNode.setParent(parent);
+						refreshHeight(newNode);
 						break;
 					} else {
 						current.setParent(parent);
@@ -37,109 +37,96 @@ public class AVL extends BST{
 		}
 	}
 	
-	public void rebalance(Node node){
-		balancear(node);
-	
-		if (node.getHeight() <= -2) {
-            if (setarAltura(node.getLeftChild().getLeftChild()) >= setarAltura(node.getLeftChild().getRightChild())){
-                node = rotacionarDireita(node);
-            }else{
-                node = rotacionarEsquerdaDireita(node);
-            }
- 
-        } else if (node.getHeight() >= 2) {
-            if (setarAltura(node.getRightChild().getRightChild()) >= setarAltura(node.getRightChild().getLeftChild())){
-                node = rotacionarEsquerda(node);
-            }else{
-                node = rotacionarDireitaEsquerda(node);
-            }
-        }
- 
-        if (node.getParent() != null) {
-            rebalance(node.getParent());
-        } else {
-            root = node;
-        }
+	public void refreshHeight(Node node){
+		Node temp = node;
+		while(temp.getParent() != null){
+			newHeight(temp.getParent());
+			temp = temp.getParent();
+		}
 		
-	}
-	
-	protected void balancear(Node... node){ 
-		for(Node n: node){
-			n.setHeight(setarAltura(n.getRightChild()) - setarAltura(n.getLeftChild()));
+		if(node.getParent().getParent() != null && node.getParent().getParent().getHeight() >= 2){
+			if (node.getParent().getParent().getRightChild() == null){
+//				if(height(node.getRightChild().getRightChild()) >= height(node.getRightChild().getLeftChild())){
+						rotacionarDireita(node.getParent()); 
+//				} else {
+//					rotacionarDireitaEsquerda(node);  // TESTAR <------
+//				}
+			}
+		}
+		
+		if (node.getParent().getParent() != null && node.getParent().getParent().getHeight() <= -2){
+			if (node.getParent().getParent().getLeftChild() == null){
+//				if (height(node.getLeftChild().getLeftChild()) >= height(node.getLeftChild().getRightChild())){
+					rotacionarEsquerda(node.getParent()); 
+//				} else {
+//				 	rotacionarEsquerdaDireita(node); // TESTAR <------
+//			 	}
+			}
 		}
 	}
 	
-	protected int setarAltura(Node node){ 
-		if (node == null){
-			return -1;
+	public void newHeight(Node node){
+		node.setHeight(height(node.getLeftChild()) - height(node.getRightChild()));
+	}
+	
+	protected int height(Node node){ 
+		
+		if(node == null) {
+			   return -1;
+		}
+     	if(node.getLeftChild() == null && node.getRightChild() == null) {
+			   return 0;
+		} else if(node.getLeftChild() == null) {
+			   return 1+height(node.getRightChild());
+		} else if(node.getRightChild() == null) {
+			   return 1+height(node.getLeftChild());
 		} else {
-			return 1 + Math.max(setarAltura(node.getLeftChild()), setarAltura(node.getRightChild()));
+			   return 1 + Math.max(height(node.getLeftChild()),height(node.getRightChild()));
 		}
 	}
 	
-	protected Node rotacionarDireita(Node node){
+	public Node rotacionarDireita(Node node){
 		
-		Node temp = node.getLeftChild();
-		temp.setParent(node.getParent());
-		node.setLeftChild(temp.getRightChild());
+		Node temp = node.getParent();
+		node.setParent(temp.getParent());
+		temp.setParent(node);
+		node.setRightChild(temp);
 		
-		if(node.getLeftChild() != null){
-			node.getLeftChild().setParent(node);
+		if(temp == root){
+			root.setLeftChild(null);
+			root = temp.getParent();
+			newHeight(temp);
 		}
+		newHeight(node);
 		
-		temp.setRightChild(node);
-		node.setParent(temp);
-		
-		if (temp.getParent() != null) {
-            if (temp.getParent().getRightChild() == node) {
-            	temp.getParent().setRightChild(temp);
-            } else {
-            	temp.getParent().setLeftChild(temp);
-            }
-        }
-		
-		balancear(node, temp);
-		
-		return temp;
+		return node;
 	}
 	
-	protected Node rotacionarEsquerda(Node node){
+	public Node rotacionarEsquerda(Node node){
 		
-		Node temp = node.getRightChild();
-		temp.setParent(node.getParent());
-		node.setRightChild(temp.getLeftChild());
+		Node temp = node.getParent();
+		node.setParent(temp.getParent());
+		temp.setParent(node);
+		node.setLeftChild(temp);
 		
-		if(node.getRightChild() != null){
-			node.getRightChild().setParent(node);
+		if(temp == root){
+			root.setRightChild(null);
+			root = temp.getParent();
+			newHeight(temp);
 		}
+		newHeight(node);	
 		
-		temp.setLeftChild(node);
-		node.setParent(temp);
-		
-		if (temp.getParent() != null) {
-            if (temp.getParent().getRightChild() == node) {
-            	temp.getParent().setRightChild(temp);
-            } else {
-            	temp.getParent().setLeftChild(temp);
-            }
-        }
-		
-		balancear(node, temp);
-		
-		return temp;
+		return node;
 	}
 	
-	protected Node rotacionarEsquerdaDireita(Node node){
-		node.setLeftChild(rotacionarEsquerda(node));
-		
-		return rotacionarDireita(node);
+	public void rotacionarDireitaEsquerda(Node node){
+		node.setRightChild(rotacionarDireita(node.getRightChild()));		
+		rotacionarEsquerda(node);
 	}
 	
-	protected Node rotacionarDireitaEsquerda(Node node){
-		node.setLeftChild(rotacionarDireita(node));
-		
-		return rotacionarEsquerda(node);
+	public void rotacionarEsquerdaDireita(Node node){
+		node.setLeftChild(rotacionarEsquerda(node.getLeftChild()));		
+		rotacionarDireita(node);
 	}
-	
 	
 }

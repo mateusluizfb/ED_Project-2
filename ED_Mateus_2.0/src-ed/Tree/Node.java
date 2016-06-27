@@ -3,10 +3,10 @@ package Tree;
 public class Node {
 	
 	private int value;
-	private int height;
-	private Node rightChild;
-	private Node leftChild;
-	private Node parent;
+	private int height = 0;
+	private Node rightChild = null;
+	private Node leftChild = null;
+	private Node parent = null;
 	
 	public int getValue() {
 		return value;

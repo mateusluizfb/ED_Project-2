@@ -1,7 +1,6 @@
 package Grafo;
 
 import java.util.HashMap;
-
 import Lists.LinkedListGeneric;
 import Lists.ListGeneric;
 import Queue.QueueGeneric;
@@ -97,6 +96,37 @@ public class Grafo<T> implements GrafoInterface<T>{
 		}
 		
 	}
+	int time = 0;
 	
+	public void dfs(){
+		for (Vertice<T> u : grafoMap.keySet()){
+			u.color = Color.WHITE;
+			u.ancestor = null;
+			u.range = INFINITO;
+		}
+		
+		time = 0;
+		for (Vertice<T> u : grafoMap.keySet()){
+			if (u.color == Color.WHITE){
+				visit(u);
+			}
+		} 
+		time = 0;
+	}
+	
+	protected void visit(Vertice<T> u){
+		u.range = ++time;
+		u.color = Color.SILVER;
+		
+		for(int i = 0;i < verticesAdjacentes(u.value).size();i++){
+			Vertice<T> temp = verticesAdjacentes(u.value).elementAt(i);
+			if(temp.color == Color.WHITE){
+				temp.ancestor = u;
+				visit(temp);
+			}
+		}		
+		u.color = Color.BLACK;
+		u.finalRange = ++time;	
+	}
 
 }

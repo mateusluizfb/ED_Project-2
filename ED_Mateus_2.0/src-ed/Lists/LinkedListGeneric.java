@@ -175,5 +175,9 @@ public class LinkedListGeneric<T>  implements ListGeneric<T>{
 		
 	}
 	
+	public boolean hasItems(){
+		return size == 0;
+	}
+	
 	
 }

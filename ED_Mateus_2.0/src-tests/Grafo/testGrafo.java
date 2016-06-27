@@ -47,5 +47,36 @@ public class testGrafo extends TestCase {
 		assertEquals(3, g.range('s', 'y'));
 		
 	}
+	
+	public void testDFS(){
+		
+		Grafo<Character> g = new Grafo<>(false);
+		
+		g.addVertice(new Vertice<>('s'));
+		g.addVertice(new Vertice<>('r'));
+		g.addVertice(new Vertice<>('t'));
+		g.addVertice(new Vertice<>('u'));
+		g.addVertice(new Vertice<>('w'));
+		g.addVertice(new Vertice<>('v'));
+		g.addVertice(new Vertice<>('x'));
+		g.addVertice(new Vertice<>('y'));
+		
+		g.addAresta('v', 'r');
+		g.addAresta('r', 's');
+		g.addAresta('s', 'w');
+		g.addAresta('w', 't');
+		g.addAresta('w', 'x');
+		g.addAresta('x', 'u');
+		g.addAresta('x', 'y');
+		g.addAresta('x', 't');
+		g.addAresta('u', 'y');
+		g.addAresta('u', 't');
+		
+		g.dfs();
+		
+		System.out.println(g.find('r').range + " " + g.find('r').finalRange);
+		
+		assertEquals(1, g.find('r').range); //por algum motivo o programa não funciona se não for por modo debug
+	}
 }
 

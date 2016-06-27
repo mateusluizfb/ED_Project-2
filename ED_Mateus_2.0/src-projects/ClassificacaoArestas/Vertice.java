@@ -1,8 +1,8 @@
-package GrafoBuscaEmProfundidade;
+package ClassificacaoArestas;
 
 enum Color {
 	WHITE,
-	GRAY,
+	SILVER,
 	BLACK;
 }
 
@@ -11,16 +11,15 @@ public class Vertice<T> {
 	public Color color;
 	public T value;
 	public int range;
-	public int iniRange;
-	public int lastRange;
 	public Vertice<T> ancestor;
+	public int finalRange;
 	
 	public Vertice(T value){
 		this.value = value;
 	}
 	
 	public String toString() {
-		return value.toString();
+		return value.toString() + " - " + color + " - " + range;
 	}
 	
 }

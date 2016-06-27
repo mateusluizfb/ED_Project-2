@@ -65,4 +65,5 @@ public interface ListGeneric<T> {
 	public void swap(int index, int index2);
 	
 	public void addAll(T[] array);
+	public boolean hasItems();
 }
