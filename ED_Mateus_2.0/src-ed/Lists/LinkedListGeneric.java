@@ -179,5 +179,16 @@ public class LinkedListGeneric<T>  implements ListGeneric<T>{
 		return size == 0;
 	}
 	
+	public boolean hasItem(T value){
+		LinkedNodeGeneric<T> temp = head;
+		for(int i = 0; i < size; i++) {
+			if(temp.getValue() == value) {
+				return true;
+			}
+			temp = temp.getNext();
+		}
+		return false;
+	}
+	
 	
 }

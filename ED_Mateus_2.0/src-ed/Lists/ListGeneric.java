@@ -66,4 +66,5 @@ public interface ListGeneric<T> {
 	
 	public void addAll(T[] array);
 	public boolean hasItems();
+	public boolean hasItem(T value);
 }

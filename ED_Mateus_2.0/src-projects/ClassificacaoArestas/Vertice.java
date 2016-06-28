@@ -7,7 +7,7 @@ enum Color {
 }
 
 public class Vertice<T> {
-
+    
 	public Color color;
 	public T value;
 	public int range;
@@ -19,7 +19,7 @@ public class Vertice<T> {
 	}
 	
 	public String toString() {
-		return value.toString() + " / range inicial: " + range + " - range final: " + finalRange;
+		return value.toString() + " / Range inicial: " + range + " - Range final: " + finalRange;
 	}
 	
 }

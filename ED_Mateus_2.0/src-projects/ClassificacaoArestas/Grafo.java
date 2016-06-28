@@ -127,10 +127,22 @@ public class Grafo<T> implements GrafoInterface<T>{
 				temp.ancestor = u;
 				
 				Aresta<T> newEdge = new Aresta<T>(u, temp);
-				newEdge.type = "TREE_EDGE";
+				newEdge.type = "TREE_EDGE"; // EH UMA TREE EDGE
 				edges.insert(0, newEdge);
 				
 				visit(temp);
+			} else if (temp != u.ancestor && temp.range < u.range && temp.color != Color.BLACK){
+				Aresta<T> newEdge = new Aresta<T>(u, temp);
+				newEdge.type = "BACKWARD_EDGE"; // EH UMA BACKWARD EDGE
+				edges.insert(0, newEdge);
+			} else if (temp.range > u.range && temp.color == Color.BLACK){
+				Aresta<T> newEdge = new Aresta<T>(u, temp);
+				newEdge.type = "FORWARD_EDGE"; // EH UMA FORWARD EDGE
+				edges.insert(0, newEdge);
+			} else if(temp != u.ancestor){
+				Aresta<T> newEdge = new Aresta<T>(u, temp);
+				newEdge.type = "CROSS_EDGE"; // EH UMA CROSS EDGE
+				edges.insert(0, newEdge);
 			}
 		}		
 		u.color = Color.BLACK;

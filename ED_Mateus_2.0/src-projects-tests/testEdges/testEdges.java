@@ -9,7 +9,7 @@ public class testEdges extends TestCase {
 
 	
 	public void testEdgePrint(){
-		Grafo<Character> g = new Grafo<>(false);
+		Grafo<Character> g = new Grafo<>(true);
 	
 		g.addVertice(new Vertice<>('s'));
 		g.addVertice(new Vertice<>('r'));
