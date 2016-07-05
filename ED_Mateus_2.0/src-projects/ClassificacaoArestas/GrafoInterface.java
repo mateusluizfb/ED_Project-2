@@ -1,4 +1,9 @@
 package ClassificacaoArestas;
+/**
+ * 
+ * @author mateus
+ *
+ */
 
 import Lists.ListGeneric;
 

@@ -1,5 +1,9 @@
 package GrafoBuscaEmProfundidade;
-
+/**
+ * 
+ * @author mateus
+ *
+ */
 enum Color {
 	WHITE,
 	GRAY,

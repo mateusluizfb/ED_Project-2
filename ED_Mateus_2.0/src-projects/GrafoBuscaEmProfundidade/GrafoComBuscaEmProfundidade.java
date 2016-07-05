@@ -1,5 +1,9 @@
 package GrafoBuscaEmProfundidade;
-
+/**
+ * 
+ * @author mateus
+ *
+ */
 import java.util.HashMap;
 import java.util.Stack;
 

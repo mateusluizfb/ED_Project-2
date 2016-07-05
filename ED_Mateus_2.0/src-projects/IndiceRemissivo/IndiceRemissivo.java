@@ -1,5 +1,9 @@
 package IndiceRemissivo;
-
+/**
+ * 
+ * @author mateus
+ *
+ */
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -40,6 +44,11 @@ public class IndiceRemissivo {
 	            
 	            while((line = bufferedReader.readLine()) != null) {
 	            	line = line.replaceAll(",", "");
+	            	line = line.replaceAll(".", "");
+	            	line = line.replaceAll(":", "");
+	            	line = line.replaceAll("?", "");
+	            	line = line.replaceAll(";", "");
+	            	line = line.replaceAll("!", "");
 	            	checkLine(line);
 	            } 
 	            
@@ -60,8 +69,7 @@ public class IndiceRemissivo {
 		String token = "";
 		String number= "";
 		
-		while(true){
-			
+		while(true){	
 			token2 = lineTokens2.nextToken();
 			
 			if(isNumeric(token2)){
@@ -88,9 +96,6 @@ public class IndiceRemissivo {
 	    return true;
 	}
 	
-	public HashMap<String, LinkedListGeneric<String>> getMap(){
-		return map;
-	}
 	
 	public void resultArchive(){
 		

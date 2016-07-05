@@ -1,5 +1,9 @@
 package ClassificacaoArestas;
-
+/**
+ * 
+ * @author mateus
+ *
+ */
 
 public class Aresta<T> {
 	

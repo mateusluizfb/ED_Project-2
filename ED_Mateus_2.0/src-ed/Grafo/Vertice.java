@@ -13,6 +13,8 @@ public class Vertice<T> {
 	public int range;
 	public Vertice<T> ancestor;
 	public int finalRange;
+	public boolean visited = false;
+
 	
 	public Vertice(T value){
 		this.value = value;

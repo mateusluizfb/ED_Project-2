@@ -1,5 +1,9 @@
 package GrafoBuscaEmProfundidade;
-
+/**
+ * 
+ * @author mateus
+ *
+ */
 import Lists.ListGeneric;
 
 public interface GrafoInterface<T> {

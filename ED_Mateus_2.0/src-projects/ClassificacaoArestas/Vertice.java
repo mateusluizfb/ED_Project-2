@@ -1,5 +1,9 @@
 package ClassificacaoArestas;
-
+/**
+ * 
+ * @author mateus
+ *
+ */
 enum Color {
 	WHITE,
 	SILVER,
@@ -13,6 +17,7 @@ public class Vertice<T> {
 	public int range;
 	public Vertice<T> ancestor;
 	public int finalRange;
+	public boolean visited;
 	
 	public Vertice(T value){
 		this.value = value;

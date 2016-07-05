@@ -43,13 +43,13 @@ public class BST implements Tree{
 					current = current.getLeftChild();
 					if (current == null){
 						parent.setLeftChild(newNode);
-						break;
+						return;
 					}
 				} else {
 					current = current.getRightChild();
 					if (current == null){
 						parent.setRightChild(newNode);
-						break;
+						return;
 					}
 				}
 			}
@@ -130,6 +130,7 @@ public class BST implements Tree{
 			successor.setRightChild(nodeRemove.getRightChild());
 		}
 		return successor;
+		
 	}	
 	
 	public Node getRoot(){
