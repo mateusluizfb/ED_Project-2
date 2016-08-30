@@ -45,3 +45,11 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# Some eclipse config files
+
+/ED_Mateus_2.0/.metadata
+/ED_Mateus_2.0/bin
+/ED_Mateus_2.0/.settings
+/ED_Mateus_2.0/.project
+/ED_Mateus_2.0/.classpath
